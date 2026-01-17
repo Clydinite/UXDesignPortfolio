@@ -46,4 +46,4 @@ I (hereandafter, "I", "my", not "user") am the Project Lead and Web Developer. I
 - Use the provided context files to extract the exact wording for JTBD, HMW, and Research findings.
 
 # Output Requirement
-Please provide the complete `App.jsx` and any necessary updates to `tailwind.config.js`.
+Please provide the complete `App.jsx`.
