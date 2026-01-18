@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { 
   Code2, 
@@ -9,63 +8,33 @@ import {
   Sparkles, 
   ExternalLink, 
   Github, 
-  Layers,
-  Search,
-  Zap,
-  Layout,
-  MousePointer2,
-  Cpu,
-  ArrowRight,
   Terminal,
-  Quote
+  Quote,
+  Database,
+  FileJson,
+  Presentation,
+  User,
+  MapPin,
+  GitCommit,
+  ArrowRight,
+  BrainCircuit,
+  Search,
+  Cpu
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-
-// --- Shared Components ---
-
-const FadeIn = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-100px" }}
-    transition={{ duration: 0.6, delay }}
-    className={className}
-  >
-    {children}
-  </motion.div>
-);
-
-const SectionHeader = ({ phase, title, subtitle }: { phase: string, title: string, subtitle: string }) => (
-  <div className="mb-16">
-    <motion.div 
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      className="flex items-center gap-3 mb-4"
-    >
-      <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono tracking-widest uppercase">
-        {phase}
-      </span>
-      <div className="h-px flex-1 bg-gradient-to-r from-emerald-500/20 to-transparent" />
-    </motion.div>
-    <FadeIn>
-      <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">{title}</h2>
-      <p className="text-zinc-400 max-w-2xl text-lg leading-relaxed">{subtitle}</p>
-    </FadeIn>
-  </div>
-);
+import { FadeIn, SectionHeader, MermaidDiagram } from './components/components';
 
 // --- Sections ---
 
 const Hero = () => (
-  <section className="min-h-[90vh] flex flex-col justify-center relative overflow-hidden px-6 pt-20">
+  <section className="min-h-[90vh] flex flex-col justify-center relative overflow-hidden px-6 pt-20 bg-black">
     {/* Background Elements */}
     <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.1),transparent_50%)]" />
     <div className="absolute top-1/4 -left-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px]" />
     
-    <div className="max-w-7xl mx-auto w-full z-10 grid lg:grid-cols-2 gap-12 items-center">
+    <div className="max-w-7xl mx-auto w-full z-10 grid lg:grid-cols-2 gap-16 items-center">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -73,7 +42,7 @@ const Hero = () => (
       >
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs mb-8">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          UX Research Case Study
+          UX Research Case Study • Team #2
         </div>
         <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-white mb-6 leading-[0.9]">
           Digital <br />
@@ -82,30 +51,30 @@ const Hero = () => (
           </span>
         </h1>
         <p className="text-xl text-zinc-400 max-w-xl font-light leading-relaxed mb-10">
-          Transforming Tainan Park into a low-pressure social interface for shy teenagers using quantitative behavioral analysis.
+          Transforming Tainan Park into a low-pressure social interface for shy teenagers. A quantitative approach to bridging the "Digital Island" gap.
         </p>
         
-        <div className="flex flex-wrap gap-4">
-           <Button className="bg-emerald-500 hover:bg-emerald-600 text-black font-bold h-12 px-8 rounded-full">
-             View Prototype
-           </Button>
-           <Button variant="outline" className="border-zinc-800 text-zinc-300 hover:bg-zinc-900 h-12 px-8 rounded-full">
-             Read Report
-           </Button>
-        </div>
-
-        <div className="mt-20 grid grid-cols-2 gap-8 border-t border-zinc-800 pt-8">
-           <div>
-             <div className="text-zinc-500 text-xs uppercase tracking-widest mb-1">Role</div>
-             <div className="text-white font-medium">Lead Architect & Developer</div>
-             <div className="text-zinc-500 text-xs mt-1">Full Stack • Data Analysis</div>
+        {/* Individual Contribution Section */}
+        <div className="mt-8 p-6 rounded-2xl bg-zinc-900/50 border border-white/10 backdrop-blur-sm relative overflow-hidden group">
+           <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500" />
+           <div className="text-emerald-400 text-xs uppercase tracking-widest mb-4 font-bold flex items-center gap-2">
+             <User size={14} /> My Role: Lead Architect & Developer
            </div>
-           <div>
-             <div className="text-zinc-500 text-xs uppercase tracking-widest mb-1">Tech Stack</div>
-             <div className="flex gap-2 text-zinc-300">
-                <Code2 size={16} /> React
-                <Cpu size={16} /> Python
-                <Zap size={16} /> Tailwind
+           <p className="text-zinc-300 text-sm mb-6 leading-relaxed">
+             I independently handled the <strong className="text-white">Data Science (Python/DBSCAN)</strong>, <strong className="text-white">UI/UX Design (React/Tailwind)</strong>, and <strong className="text-white">Research Synthesis</strong>. I also served as the primary presenter, creating the slides with <strong className="text-white">Slidev</strong>.
+           </p>
+           <div className="grid grid-cols-2 gap-y-4 gap-x-8 text-sm">
+             <div className="space-y-1">
+               <div className="text-white font-medium flex items-center gap-2">
+                 <Database size={14} className="text-blue-400"/> Data Analysis
+               </div>
+               <p className="text-zinc-500 text-xs">Digitized Miro field notes to Python datasets.</p>
+             </div>
+             <div className="space-y-1">
+               <div className="text-white font-medium flex items-center gap-2">
+                 <Presentation size={14} className="text-orange-400"/> Presentation
+               </div>
+               <p className="text-zinc-500 text-xs">Designed & Presented with Slidev.</p>
              </div>
            </div>
         </div>
@@ -116,23 +85,23 @@ const Hero = () => (
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, delay: 0.2 }}
-        className="relative h-[600px] w-full rounded-3xl overflow-hidden border border-white/10 bg-zinc-900/50 backdrop-blur-sm"
+        className="relative h-[700px] w-full rounded-3xl overflow-hidden border border-white/10 bg-zinc-900/50 backdrop-blur-sm group"
       >
-        {/* TODO: Place your personal photo here */}
-        <div className="absolute inset-0 flex items-center justify-center flex-col text-zinc-600 gap-4">
-           <div className="w-32 h-32 border-2 border-dashed border-zinc-700 rounded-full flex items-center justify-center">
-             <Users size={32} />
+        {/* TODO: Personal Photo Area */}
+        <div className="absolute inset-0 flex items-center justify-center flex-col text-zinc-600 gap-4 bg-zinc-950">
+           <div className="w-40 h-40 border-2 border-dashed border-zinc-700 rounded-full flex items-center justify-center">
+             <User size={48} />
            </div>
-           <p className="font-mono text-sm uppercase tracking-widest">TODO: Personal Photo</p>
-           <p className="text-xs text-zinc-700 max-w-xs text-center">
-             Replace this container with your actual photo from the `images/` directory or a placeholder asset.
-           </p>
+           <p className="font-mono text-sm uppercase tracking-widest text-emerald-500/50">TODO: Insert Personal Photo Here</p>
         </div>
         
         {/* Decorative Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent">
-           <div className="font-mono text-emerald-400 text-xs mb-1">Project Lead</div>
-           <div className="text-white text-xl font-bold">Your Name</div>
+        <div className="absolute bottom-0 left-0 right-0 p-10 bg-gradient-to-t from-black via-black/80 to-transparent">
+           <div className="font-mono text-emerald-400 text-xs mb-2">Project Lead</div>
+           <div className="text-white text-3xl font-bold">Your Name</div>
+           <p className="text-zinc-400 text-sm mt-2">
+             Responsible for end-to-end execution: Data Modeling → UX Design → Frontend Deployment.
+           </p>
         </div>
       </motion.div>
     </div>
@@ -143,101 +112,134 @@ const PhaseOne = () => (
   <section className="py-32 px-6 max-w-7xl mx-auto">
     <SectionHeader 
       phase="Phase 01: Discovery" 
-      title="Quantifying The Invisible" 
-      subtitle="Why Tainan Park? Moving beyond 'function' to 'state of being'. Using DBSCAN to identify the 'Digital Island' phenomenon."
+      title="Field Work & Site Selection" 
+      subtitle="My journey from initial site scanning to deep data digitization. How I advocated for a harder, more psychological research topic."
     />
     
-    <div className="grid md:grid-cols-2 gap-12 mb-20">
-      <FadeIn>
-        <Card className="bg-zinc-900 border-zinc-800 h-full">
-          <CardHeader>
-            <CardTitle className="text-white">Site Selection Logic</CardTitle>
-            <CardDescription>Why we chose the park over the night market.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-             <div className="p-4 rounded-xl bg-zinc-950/50 border border-zinc-800">
-               <div className="flex justify-between items-center mb-2">
-                 <span className="text-orange-400 font-bold">Night Market</span>
-                 <Badge variant="outline" className="text-zinc-500 border-zinc-700">Functional</Badge>
-               </div>
-               <p className="text-zinc-400 text-sm">Users have clear roles (Buyer/Seller). Interaction is transactional.</p>
-             </div>
-             <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/20">
-               <div className="flex justify-between items-center mb-2">
-                 <span className="text-emerald-400 font-bold">Tainan Park</span>
-                 <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 hover:bg-emerald-500/30">De-individualized</Badge>
-               </div>
-               <p className="text-zinc-300 text-sm">Users have no fixed role. Pure "State of Being". Perfect for observing social anxiety.</p>
-             </div>
-          </CardContent>
-        </Card>
-      </FadeIn>
-
-      <FadeIn delay={0.2}>
-         <div className="relative rounded-3xl overflow-hidden border border-white/10 aspect-video group">
-           <img 
-             src="/images/tainan_park.png" 
-             alt="Tainan Park" 
-             className="object-cover w-full h-full opacity-60 group-hover:opacity-80 transition-opacity duration-500" 
-           />
-           <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent flex items-end p-8">
-             <div>
-               <p className="text-emerald-300 font-mono text-xs mb-2">Field Site</p>
-               <h3 className="text-white font-bold text-2xl">The "Non-Purposed" Space</h3>
-             </div>
-           </div>
-         </div>
-      </FadeIn>
-    </div>
-
-    <div className="space-y-8">
-      <FadeIn>
-        <div className="flex items-center justify-between mb-8">
-           <h3 className="text-2xl font-bold text-white">Data Science: The 12 Behavioral Archetypes</h3>
-           <Badge variant="outline" className="border-emerald-500/50 text-emerald-400 px-4 py-1">Python + DBSCAN</Badge>
-        </div>
-      </FadeIn>
-
-      <div className="grid lg:grid-cols-3 gap-8">
-        <FadeIn className="lg:col-span-1 space-y-4">
+    <div className="space-y-24">
+      {/* 1. Site Selection Narrative */}
+      <div className="grid md:grid-cols-12 gap-12 items-center">
+        <FadeIn className="md:col-span-5">
+          <div className="space-y-6">
+            <h3 className="text-2xl font-bold text-white flex items-center gap-2">
+              <MapPin className="text-emerald-500" /> Initial Scanning
+            </h3>
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              In the early stages, I personally scouted the <strong className="text-white">Ying-tong Community (銀同社區)</strong>. I was fascinated by its potential for "Sound Narrative" using NFC to tell the stories of old streets. 
+            </p>
+            <div className="p-4 border-l-2 border-red-500 bg-red-500/5 rounded-r-lg">
+              <p className="text-zinc-300 text-xs italic">
+                However, after discussing with the group, we realized it leaned too heavily towards "Social Design" rather than UX interaction. <b>I accepted the group consensus to pivot.</b>
+              </p>
+            </div>
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              We ultimately chose <strong className="text-white">Tainan Park</strong> because of its "De-individualized" nature—it was the perfect lab to observe pure social anxiety without the noise of commercial transactions found in Night Markets.
+            </p>
+          </div>
+        </FadeIn>
+        
+        <FadeIn className="md:col-span-7" delay={0.2}>
            <Card className="bg-zinc-900 border-zinc-800">
-             <CardHeader className="pb-4">
-               <CardTitle className="text-lg text-white flex items-center gap-2">
-                 <Terminal size={18} className="text-emerald-500" />
-                 Clustering Logic
-               </CardTitle>
+             <CardHeader>
+               <CardTitle className="text-white text-sm font-mono">Site Decision Matrix</CardTitle>
              </CardHeader>
              <CardContent>
-               <pre className="text-[10px] leading-relaxed font-mono text-zinc-400 bg-black/50 p-4 rounded-lg overflow-x-auto">
-{`from sklearn.cluster import DBSCAN
-import pandas as pd
-
-# 9 Dimensions:
-# Mood, Tech Usage, Mobility...
-X = scaler.fit_transform(data)
-
-# EPS=3.0: The "Social Safety Radius"
-# Min_Samples=2
-db = DBSCAN(eps=3.0).fit(X)
-# Result: 4 Core Groups`}
-               </pre>
-               <p className="mt-4 text-xs text-zinc-500">
-                 We quantified 12 users (U1-U12) across 9 dimensions. The algorithm identified a clear "Social Vacuum" between groups.
-               </p>
+               <div className="grid grid-cols-3 gap-4 text-center">
+                 <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800 opacity-50">
+                   <div className="text-orange-400 font-bold mb-2 text-xs">Night Market</div>
+                   <div className="text-zinc-500 text-[10px]">Efficiency Focus</div>
+                 </div>
+                 <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800 opacity-50">
+                   <div className="text-blue-400 font-bold mb-2 text-xs">Ying-tong Community</div>
+                   <div className="text-zinc-500 text-[10px]">My Proposal (Rejected)</div>
+                 </div>
+                 <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/50 scale-110 shadow-xl shadow-emerald-900/20">
+                   <div className="text-emerald-400 font-bold mb-2 text-xs">Tainan Park</div>
+                   <div className="text-emerald-200/70 text-[10px]">Selected: "State of Being"</div>
+                 </div>
+               </div>
              </CardContent>
            </Card>
         </FadeIn>
-
-        <FadeIn delay={0.2} className="lg:col-span-2">
-           <div className="bg-white p-4 rounded-3xl h-full min-h-[300px] flex items-center justify-center">
-             <img 
-               src="/images/behavioral_analysis_dimensions.png" 
-               alt="Behavioral Analysis Radar Charts" 
-               className="w-full h-full object-contain rounded-xl"
-             />
-           </div>
-        </FadeIn>
       </div>
+
+      {/* 2. Observation & Data Digitization */}
+      <div className="grid md:grid-cols-12 gap-12 items-start">
+         <FadeIn className="md:col-span-7 relative group">
+            {/* Placeholder for Pavilion Observation Image */}
+            <div className="aspect-video bg-zinc-800 rounded-2xl border border-white/10 flex items-center justify-center relative overflow-hidden">
+               <img src="/images/tainan_park.png" className="absolute inset-0 w-full h-full object-cover opacity-40 blur-sm" />
+               <div className="relative z-10 text-center p-8 bg-black/60 rounded-xl backdrop-blur-md border border-white/10">
+                  <User size={32} className="mx-auto text-zinc-400 mb-2" />
+                  <p className="text-white font-bold text-sm">My Observation Spot</p>
+                  <p className="text-zinc-400 text-xs mt-1">The Pavilion (涼亭)</p>
+               </div>
+            </div>
+            <div className="mt-4 flex gap-4 overflow-x-auto pb-2">
+               {[4, 5, 6].map(id => (
+                 <Badge key={id} variant="outline" className="border-zinc-700 text-zinc-400 whitespace-nowrap">
+                   Contributed to User U{id} (Elderly)
+                 </Badge>
+               ))}
+            </div>
+         </FadeIn>
+
+         <FadeIn className="md:col-span-5" delay={0.2}>
+            <h3 className="text-2xl font-bold text-white flex items-center gap-2 mb-6">
+              <Database className="text-emerald-500" /> From Miro to Code
+            </h3>
+            <div className="space-y-4">
+               <p className="text-zinc-400 text-sm leading-relaxed">
+                 Initially, our group used Miro sticky notes to map behaviors. However, I realized that to find a true "Social Vacuum," we needed mathematical precision, not just intuition.
+               </p>
+               <div className="p-4 bg-zinc-900 rounded-xl border-l-4 border-blue-500">
+                 <h4 className="text-white text-xs font-bold mb-2 flex items-center gap-2"><GitCommit size={12}/> My Action</h4>
+                 <p className="text-zinc-300 text-xs">
+                   I took the initiative to <b>digitize all our Miro observations</b> into a structured CSV dataset (`field_study.csv`), quantifying qualitative behaviors into 9 dimensions (1-10 scale).
+                 </p>
+               </div>
+               <p className="text-zinc-400 text-sm leading-relaxed">
+                 Specifically, I spent hours sitting in the pavilion observing <b>Users U4, U5, and U6</b> (the elderly groups), documenting their "territorial" behaviors like playing cards and organizing tea sets, which became the baseline for "High Comfort" users.
+               </p>
+            </div>
+         </FadeIn>
+      </div>
+
+      {/* 3. Analysis Code */}
+      <FadeIn>
+        <Card className="bg-zinc-950 border-zinc-800 overflow-hidden">
+          <div className="flex flex-col md:flex-row">
+            <div className="md:w-1/2 p-8 border-r border-zinc-800">
+               <h3 className="text-white font-bold mb-4 flex items-center gap-2"><Terminal size={16} className="text-emerald-500"/> The Python Analysis</h3>
+               <p className="text-zinc-400 text-sm mb-6">
+                 With the data digitized, I wrote a Python script using <b>DBSCAN (Density-Based Spatial Clustering)</b>. I experimented with different `eps` values and found that `eps=3.0` was the perfect parameter to define the "Social Safety Radius".
+               </p>
+               <Code2 className="text-zinc-600 mb-2" size={24} />
+               <pre className="text-[10px] leading-relaxed font-mono text-emerald-300 bg-black p-4 rounded-lg overflow-x-auto border border-white/10">
+{`# My Logic for Clustering
+data = pd.read_csv('field_study.csv')
+X_scaled = StandardScaler().fit_transform(data)
+
+# eps=3.0 determined experimentally
+dbscan = DBSCAN(eps=3.0, min_samples=2)
+clusters = dbscan.fit_predict(X_scaled)
+
+# Output: 4 Distinct Behavioral Groups`}
+               </pre>
+            </div>
+            <div className="md:w-1/2 p-8 bg-white flex flex-col items-center justify-center">
+               <img 
+                 src="/images/behavioral_analysis_dimensions.png" 
+                 alt="Cluster Analysis Result" 
+                 className="w-full h-auto object-contain shadow-lg rounded-lg"
+               />
+               <p className="text-black/50 text-[10px] mt-4 text-center max-w-xs">
+                 The output of my code: 12 users clustered into 4 groups, revealing the "Social Vacuum" in between.
+               </p>
+            </div>
+          </div>
+        </Card>
+      </FadeIn>
     </div>
   </section>
 );
@@ -247,93 +249,69 @@ const PhaseTwo = () => (
     <div className="max-w-7xl mx-auto">
        <SectionHeader 
         phase="Phase 02: Definition" 
-        title="Meet Yang Zi-Xuan" 
-        subtitle="The personification of our data. A 16-year-old girl who wants to connect, but feels safe only in the shadows."
+        title="Constructing the Persona" 
+        subtitle="I synthesized the data-driven clusters into a human story. 'Yang Zi-Xuan' is not a creative writing exercise; she is the 'Isolated Observer' cluster personified."
       />
 
-      <div className="grid lg:grid-cols-12 gap-12 items-start">
-        {/* Persona Image Card */}
-        <div className="lg:col-span-5 relative">
+      <div className="grid lg:grid-cols-12 gap-12">
+        <div className="lg:col-span-5 space-y-6">
           <FadeIn>
-            <div className="relative rounded-[40px] overflow-hidden border-8 border-white/5 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
-              <img 
-                src="/images/persona/persona1.png" 
-                alt="Yang Zi-Xuan looking at corridor" 
-                className="w-full object-cover aspect-[3/4]" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
-              <div className="absolute bottom-8 left-8 right-8">
-                 <div className="flex gap-2 mb-4">
-                   <Badge className="bg-white/10 backdrop-blur-md text-white border-none">Shy</Badge>
-                   <Badge className="bg-white/10 backdrop-blur-md text-white border-none">Observant</Badge>
-                   <Badge className="bg-white/10 backdrop-blur-md text-white border-none">Tech-Reliant</Badge>
-                 </div>
-                 <h3 className="text-3xl font-bold text-white">Yang Zi-Xuan</h3>
-                 <p className="text-zinc-300 mt-2">16 y.o. High School Freshman</p>
-              </div>
-            </div>
-            
-            {/* Context Images */}
-            <div className="absolute -bottom-10 -right-10 w-48 rounded-2xl overflow-hidden border-4 border-zinc-900 shadow-xl hidden md:block">
-               <img src="/images/persona/persona2.png" alt="Using phone in room" className="w-full" />
-            </div>
+            <Card className="bg-zinc-900 border-zinc-800 overflow-hidden">
+               <img 
+                 src="/images/persona/persona1.png" 
+                 alt="Yang Zi-Xuan" 
+                 className="w-full aspect-[4/3] object-cover"
+               />
+               <CardHeader>
+                 <CardTitle className="text-white text-2xl">Yang Zi-Xuan</CardTitle>
+                 <CardDescription>16 y.o. • Shy • Observant</CardDescription>
+               </CardHeader>
+               <CardContent>
+                 <p className="text-zinc-400 text-sm italic">
+                   "I want to find a small circle that doesn't feel forced. I need a reason to stay in the park that isn't just surviving the heat."
+                 </p>
+               </CardContent>
+            </Card>
+          </FadeIn>
+          
+          <FadeIn delay={0.2}>
+             <div className="grid grid-cols-2 gap-4">
+                <img src="/images/persona/persona2.png" className="rounded-xl border border-zinc-800 opacity-60 hover:opacity-100 transition-opacity" alt="Persona in room"/>
+                <img src="/images/persona/persona3.png" className="rounded-xl border border-zinc-800 opacity-60 hover:opacity-100 transition-opacity" alt="Persona at board"/>
+             </div>
           </FadeIn>
         </div>
 
-        {/* Narrative & Insights */}
-        <div className="lg:col-span-7 space-y-10">
-          <FadeIn delay={0.2}>
-            <div className="flex gap-4">
-              <Quote className="text-emerald-500 flex-shrink-0" size={32} />
-              <blockquote className="text-2xl text-zinc-300 font-light italic leading-relaxed">
-                "I want to find a small circle that doesn't feel forced. I need a reason to stay in the park that isn't just surviving the heat."
-              </blockquote>
-            </div>
-          </FadeIn>
+        <div className="lg:col-span-7 space-y-8">
+           <FadeIn delay={0.3}>
+             <h3 className="text-2xl font-bold text-white mb-6">Stakeholder Mapping</h3>
+             <p className="text-zinc-400 text-sm mb-6">
+               To understand her pressure points, I created this system map showing how academic pressure and digital algorithms trap her in a loop of isolation.
+             </p>
+             <MermaidDiagram chart={`graph TD
+    Main((Yang Zi-Xuan))
+    Main --- |Pressure| CramTeacher[Cram School]
+    Main --- |Anxiety| Peers[Established Groups]
+    Main -.-> |Escape| Algorithms[Instagram/Threads]
+    Main -.-> |Conflict| Elders[Park Territory Owners]
+    Algorithms --- TechCorp
+    Elders --- Manager[Park Management]
+    
+    style Main fill:#10b981,stroke:#fff,color:#000`} />
+           </FadeIn>
 
-          <FadeIn delay={0.3}>
-            <div className="grid sm:grid-cols-2 gap-6">
-               <Card className="bg-zinc-900 border-zinc-800">
-                 <CardHeader>
-                   <CardTitle className="text-emerald-400 text-lg">Jobs To Be Done</CardTitle>
-                 </CardHeader>
-                 <CardContent>
-                   <ul className="space-y-3 text-sm text-zinc-400 list-disc pl-4">
-                     <li>I want to know the "vibe" before I join.</li>
-                     <li>I want to filter out loud, high-energy events.</li>
-                     <li>I need an "Exit Strategy" if I feel awkward.</li>
-                   </ul>
-                 </CardContent>
-               </Card>
-               <Card className="bg-zinc-900 border-zinc-800">
-                 <CardHeader>
-                   <CardTitle className="text-blue-400 text-lg">How Might We?</CardTitle>
-                 </CardHeader>
-                 <CardContent>
-                   <p className="text-sm text-zinc-400 leading-relaxed">
-                     How might we provide companionship without the burden of active social performance?
-                   </p>
-                   <p className="text-sm text-zinc-500 mt-4 font-mono">
-                     {'>'} Shift from "Meeting" to "Co-existing".
-                   </p>
-                 </CardContent>
-               </Card>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={0.4}>
-             <h4 className="text-white font-bold mb-4 flex items-center gap-2">
-               <Map className="text-zinc-500" size={20} />
-               Stakeholder Pressure Map
-             </h4>
-             <div className="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 text-sm text-zinc-400 font-mono leading-relaxed">
-                [Main: Yang Zi-Xuan] <br />
-                &nbsp;&nbsp;├── [Pressure] Cram School Teachers <br />
-                &nbsp;&nbsp;├── [Anxiety] Established Peer Groups <br />
-                &nbsp;&nbsp;├── [Escape] Instagram/Threads Algorithms <br />
-                &nbsp;&nbsp;└── [Conflict] Territory Owners (Elderly in Park)
+           <FadeIn delay={0.4}>
+             <div className="grid sm:grid-cols-2 gap-6 mt-8">
+                <div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800">
+                   <span className="text-emerald-400 text-xs font-bold uppercase tracking-widest block mb-2">Job To Be Done</span>
+                   <p className="text-white text-sm">"I want to know the vibe before I join so I don't feel awkward."</p>
+                </div>
+                <div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800">
+                   <span className="text-blue-400 text-xs font-bold uppercase tracking-widest block mb-2">How Might We</span>
+                   <p className="text-white text-sm">"How might we provide companionship without the burden of active social performance?"</p>
+                </div>
              </div>
-          </FadeIn>
+           </FadeIn>
         </div>
       </div>
     </div>
@@ -345,99 +323,86 @@ const PhaseThree = () => (
      <SectionHeader 
         phase="Phase 03: Solution" 
         title="The Digital Interface" 
-        subtitle="A React-based platform designed to lower the friction of entering a physical space. Focused on 'Vibe First, Meeting Second'."
+        subtitle="I built the entire React application myself. The design focuses on lowering friction through 'De-individualization' and 'Vibe-based Sorting'."
       />
 
-      {/* Feature 1: The Filter */}
       <div className="mb-32">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
            <FadeIn className="order-2 lg:order-1">
-             <div className="relative group">
+             <div className="relative group perspective-1000">
                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000" />
                <img 
                  src="/images/website/Screenshot_20251214_022417.jpg" 
                  alt="Activity Filter UI" 
-                 className="relative rounded-xl border border-white/10 shadow-2xl w-full"
-               />
-               <img 
-                 src="/images/website/Screenshot_20251214_022433.jpg"
-                 alt="Activity Detail UI"
-                 className="absolute -right-12 -bottom-12 w-1/2 rounded-xl border border-white/10 shadow-2xl"
+                 className="relative rounded-xl border border-white/10 shadow-2xl w-full rotate-y-2 group-hover:rotate-y-0 transition-transform duration-700"
                />
              </div>
            </FadeIn>
-           <FadeIn className="order-1 lg:order-2 space-y-6">
-             <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-4">
-               <Layout size={24} />
+           <FadeIn className="order-1 lg:order-2 space-y-8">
+             <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-4 border border-emerald-500/20">
+               <Code2 size={32} />
              </div>
-             <h3 className="text-3xl font-bold text-white">Social Intensity Slider</h3>
-             <p className="text-zinc-400 text-lg leading-relaxed">
-               The core innovation. Unlike standard event apps that sort by time or category, we sort by <span className="text-white">Social Energy</span>.
-             </p>
-             <ul className="space-y-4">
-               {[
-                 "Level 1: No talking required (Just co-presence)",
-                 "Level 2: Casual, low-pressure small talk",
-                 "Level 3: Active participation"
-               ].map((item, i) => (
-                 <li key={i} className="flex items-center gap-3 text-zinc-300">
-                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                   {item}
-                 </li>
-               ))}
-             </ul>
+             <div>
+                <h3 className="text-3xl font-bold text-white mb-2">My Contribution: The "Social Slider"</h3>
+                <p className="text-zinc-400 text-lg leading-relaxed">
+                  I coded the filtering logic in `Activities.tsx`. Instead of standard categories, I created a <span className="text-white">Social Intensity Slider</span> that filters data based on the "Energy" required to participate.
+                </p>
+             </div>
+             <div className="p-4 bg-zinc-900 rounded-xl border border-zinc-800 font-mono text-xs text-zinc-400">
+               <p className="text-emerald-400 mb-2">// Activities.tsx</p>
+               <p>const levelMatch = (activity.socialLevel + 1) &gt;= socialLevel[0] && (activity.socialLevel + 1) &lt;= socialLevel[1];</p>
+             </div>
            </FadeIn>
         </div>
       </div>
 
-      {/* Feature 2: Profile & Safety */}
       <div className="grid lg:grid-cols-3 gap-8">
          <FadeIn>
-           <Card className="bg-zinc-900 border-zinc-800 h-full">
+           <Card className="bg-zinc-900 border-zinc-800 h-full group hover:bg-zinc-900/80 transition-all">
              <CardHeader>
                <CardTitle className="text-white flex items-center gap-2">
                  <Users className="text-purple-400" /> De-individualized Profile
                </CardTitle>
              </CardHeader>
              <CardContent>
-               <p className="text-zinc-400 text-sm mb-6">
-                 Replacing anxiety-inducing "Bio" sections with visual tags and "Social Battery" indicators.
+               <p className="text-zinc-400 text-sm mb-6 h-12">
+                 I designed the profile page to use visual tags rather than text bios, reducing the pressure of self-introduction.
                </p>
-               <div className="rounded-lg overflow-hidden border border-white/10">
-                 <img src="/images/website/Screenshot_20260102_002522.jpg" alt="Profile UI" className="w-full" />
+               <div className="rounded-lg overflow-hidden border border-white/10 group-hover:scale-105 transition-transform duration-500">
+                 <img src="/images/website/Screenshot_20260102_002522.jpg" alt="Profile UI" className="w-full object-cover" />
                </div>
              </CardContent>
            </Card>
          </FadeIn>
          
          <FadeIn delay={0.2}>
-           <Card className="bg-zinc-900 border-zinc-800 h-full">
+           <Card className="bg-zinc-900 border-zinc-800 h-full group hover:bg-zinc-900/80 transition-all">
              <CardHeader>
                <CardTitle className="text-white flex items-center gap-2">
                  <ShieldCheck className="text-orange-400" /> Safety & Exit Guides
                </CardTitle>
              </CardHeader>
              <CardContent>
-               <p className="text-zinc-400 text-sm mb-6">
-                 Giving users the "right to leave". Pre-written excuses and safe lighting maps.
+               <p className="text-zinc-400 text-sm mb-6 h-12">
+                 I implemented a safety map and "Exit Guides" (pre-written excuses) to give users the "right to leave".
                </p>
-               <div className="rounded-lg overflow-hidden border border-white/10">
-                 <img src="/images/website/Screenshot_20260101_220657.jpg" alt="Safety UI" className="w-full" />
+               <div className="rounded-lg overflow-hidden border border-white/10 group-hover:scale-105 transition-transform duration-500">
+                 <img src="/images/website/Screenshot_20260101_220657.jpg" alt="Safety UI" className="w-full object-cover" />
                </div>
              </CardContent>
            </Card>
          </FadeIn>
 
          <FadeIn delay={0.4}>
-            <Card className="bg-zinc-900 border-zinc-800 h-full flex flex-col justify-center items-center text-center p-8">
-               <Sparkles className="text-yellow-400 mb-6" size={48} />
-               <h4 className="text-xl font-bold text-white mb-4">From "Stranger" to "Familiar"</h4>
-               <p className="text-zinc-400">
-                 The goal isn't to force friendship, but to enable comfortable silence.
-               </p>
-               <Button variant="link" className="text-emerald-400 mt-6">
-                 Read the verification report <ArrowRight size={16} className="ml-2" />
-               </Button>
+            <Card className="bg-zinc-900 border-zinc-800 h-full flex flex-col justify-center items-center text-center p-8 bg-[url('/images/website/Screenshot_20260101_220653.jpg')] bg-cover bg-center relative overflow-hidden group">
+               <div className="absolute inset-0 bg-black/80 group-hover:bg-black/70 transition-colors" />
+               <div className="relative z-10">
+                 <Sparkles className="mx-auto text-yellow-400 mb-6" size={48} />
+                 <h4 className="text-xl font-bold text-white mb-4">From "Stranger" to "Familiar"</h4>
+                 <p className="text-zinc-300 mb-6">
+                   Screenshot of the "Friends Note" feature I built to help her remember details about people.
+                 </p>
+               </div>
             </Card>
          </FadeIn>
       </div>
@@ -450,45 +415,59 @@ const PhaseFour = () => (
       <SectionHeader 
         phase="Phase 04: Verification" 
         title="AI-Driven Roleplay" 
-        subtitle="We didn't just guess. We simulated. Using Gemini to pressure-test the prototype against our Persona's deepest anxieties."
+        subtitle="I engineered a verification loop using Gemini 3.0 CLI. I didn't just 'ask' AI; I created a protocol to filter out hallucinations."
       />
 
       <div className="grid lg:grid-cols-2 gap-16 items-center">
-        <FadeIn className="space-y-6">
-          <div className="flex gap-4 mb-8">
-            <Badge variant="outline" className="border-blue-500/30 text-blue-400">Gemini 3.0</Badge>
-            <Badge variant="outline" className="border-purple-500/30 text-purple-400">OOC Mode</Badge>
+        <FadeIn className="space-y-8">
+          <div className="flex gap-4 mb-4">
+            <Badge variant="outline" className="border-blue-500/30 text-blue-400 gap-2"><Cpu size={12}/> Gemini 3.0</Badge>
+            <Badge variant="outline" className="border-purple-500/30 text-purple-400 gap-2"><BrainCircuit size={12}/> Prompt Engineering</Badge>
           </div>
           
-          <h3 className="text-2xl font-bold text-white">The "Out of Character" Technique</h3>
+          <h3 className="text-3xl font-bold text-white">My "OOC" (Out of Character) Protocol</h3>
           <p className="text-zinc-400 leading-relaxed">
-            During testing, AI would often hallucinate technical details (e.g., "I like the React state management"). 
-            We implemented an <b>OOC Protocol</b> to force the model to stay strictly within the persona of a 16-year-old student, revealing genuine emotional friction points.
+            When I fed my code to the AI, it started "hallucinating"—the Persona started talking about React variables and `Profile.tsx`. 
+            I realized this invalidated the test.
+          </p>
+          <p className="text-zinc-400 leading-relaxed">
+            I implemented an <b>OOC Command</b>: <i>"OOC: Please do not mention any code. End users cannot see that. Speak strictly from the UI perspective."</i> This forced the AI to filter its own output, giving me valid UX feedback.
           </p>
           
-          <div className="p-6 bg-black/40 rounded-xl border-l-4 border-red-500">
-             <div className="text-xs text-red-400 font-bold uppercase mb-2">Before Iteration</div>
-             <p className="text-zinc-500 italic">"The profile page looks functional but exposing my school name makes me nervous."</p>
-          </div>
-          <div className="p-6 bg-black/40 rounded-xl border-l-4 border-emerald-500">
-             <div className="text-xs text-emerald-400 font-bold uppercase mb-2">After Iteration</div>
-             <p className="text-zinc-300 italic">"Added 'Visibility Controls' for personal data. Now I feel safe enough to fill it out."</p>
+          <div className="space-y-4">
+            <div className="p-6 bg-black/40 rounded-xl border-l-4 border-red-500">
+               <div className="text-xs text-red-400 font-bold uppercase mb-2 flex items-center gap-2"><FileJson size={12}/> AI Hallucination (Before Fix)</div>
+               <p className="text-zinc-500 italic">"I think the <b>Profile.tsx</b> component is good, but maybe the <b>socialMedia variable</b> should be optional."</p>
+            </div>
+            <div className="p-6 bg-black/40 rounded-xl border-l-4 border-emerald-500">
+               <div className="text-xs text-emerald-400 font-bold uppercase mb-2 flex items-center gap-2"><MessageSquare size={12}/> AI Output (After My OOC Prompt)</div>
+               <p className="text-zinc-300 italic">"I don't want to give my Instagram to strangers right away. It makes me feel exposed. Can I hide it?"</p>
+            </div>
           </div>
         </FadeIn>
 
         <FadeIn delay={0.2} className="relative">
-           {/* Diagram representation */}
            <div className="absolute inset-0 bg-emerald-500/5 blur-3xl rounded-full" />
            <div className="relative bg-zinc-950 border border-white/10 rounded-2xl p-8 shadow-2xl">
-              <div className="flex justify-between items-center text-sm font-mono text-zinc-500 mb-8">
-                <span>INPUT: Persona.md</span>
-                <ArrowRight size={16} />
-                <span>PROCESS: Roleplay</span>
-                <ArrowRight size={16} />
-                <span>OUTPUT: UX Insight</span>
+              <div className="mb-6 border-b border-white/5 pb-4">
+                <h4 className="text-white font-bold mb-1">My Verification Pipeline</h4>
+                <p className="text-zinc-500 text-xs">Visualizing the Dual-Track AI strategy I designed.</p>
               </div>
               
-              <div className="space-y-4">
+              <MermaidDiagram chart={`graph LR
+    A[Persona Data] --> C((Gemini AI))
+    B[Website Code] --> C
+    C --> D{Human Eval}
+    
+    D -- Technical Leak --> E1[My OOC Protocol]
+    D -- Good Insight --> F[Code Iteration]
+    
+    E1 --> C
+    
+    style C fill:#2563eb,color:#fff
+    style D fill:#10b981,color:#fff`} />
+
+              <div className="mt-8 space-y-4">
                  <div className="flex gap-4">
                     <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 text-xs">AI</div>
                     <div className="bg-blue-500/10 p-3 rounded-r-xl rounded-bl-xl text-blue-200 text-sm">
@@ -498,7 +477,7 @@ const PhaseFour = () => (
                  <div className="flex gap-4 flex-row-reverse">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-xs">Dev</div>
                     <div className="bg-emerald-500/10 p-3 rounded-l-xl rounded-br-xl text-emerald-200 text-sm">
-                       *Action:* Added "Friends Note" feature and "Pre-event Chat" to build familiarity.
+                       *Action:* I added the "Pre-event Chat" feature to allow low-friction warm-ups.
                     </div>
                  </div>
               </div>
@@ -525,7 +504,7 @@ const Conclusion = () => (
            { title: "For the Park", desc: "Reclaiming the space as a 'Third Place' for youth." },
            { title: "For Society", desc: "A blueprint for combating modern loneliness." }
          ].map((item, i) => (
-           <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/5">
+           <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
              <h4 className="text-emerald-400 font-bold mb-2">{item.title}</h4>
              <p className="text-zinc-500 text-sm">{item.desc}</p>
            </div>
@@ -537,7 +516,7 @@ const Conclusion = () => (
 
 export default function App() {
   return (
-    <div className="bg-black min-h-screen text-zinc-200 selection:bg-emerald-500/30">
+    <div className="bg-black min-h-screen text-zinc-200 selection:bg-emerald-500/30 font-sans">
       <Hero />
       <PhaseOne />
       <PhaseTwo />
@@ -546,7 +525,7 @@ export default function App() {
       <Conclusion />
       
       <footer className="py-12 border-t border-white/5 text-center text-zinc-600 text-xs font-mono uppercase tracking-widest">
-        © 2026 Tainan Park Digital Third Space • Team #2
+        © 2026 Tainan Park Digital Third Space • Team #2 • Designed & Developed by Your Name
       </footer>
     </div>
   );
