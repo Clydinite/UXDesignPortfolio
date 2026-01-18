@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import mermaid from 'mermaid';
+import { FileText } from 'lucide-react';
 
 export const FadeIn = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => (
   <motion.div
@@ -62,3 +63,17 @@ export const MermaidDiagram = ({ chart }: { chart: string }) => {
     <div className="p-4 bg-zinc-950/50 rounded-xl border border-white/10 overflow-x-auto flex justify-center" dangerouslySetInnerHTML={{ __html: svg }} />
   );
 };
+
+const GITHUB_DATA_URL = "https://github.com/Clydinite/UXDesignPresentation/tree/main/data";
+
+export const DataLink = ({ path, label }: { path: string, label?: string }) => (
+  <a 
+    href={`${GITHUB_DATA_URL}/${path}`} 
+    target="_blank" 
+    rel="noreferrer"
+    className="inline-flex items-center gap-1 text-xs font-mono text-zinc-500 hover:text-emerald-400 transition-colors border-b border-zinc-800 hover:border-emerald-500 pb-0.5"
+  >
+    <FileText size={10} />
+    {label || path}
+  </a>
+);
