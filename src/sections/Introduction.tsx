@@ -1,13 +1,7 @@
-import React from 'react';
 import { 
   School, 
-  Code2, 
-  Zap, 
   Layout, 
   Database, 
-  Terminal, 
-  GitCommit, 
-  FileJson, 
   ExternalLink, 
   Presentation, 
   Github, 
@@ -16,7 +10,7 @@ import {
   Code
 } from "lucide-react";
 import { Button } from "../components/ui/button";
-import { FadeIn, DataLink } from "../components/components";
+import { FadeIn } from "../components/components";
 
 // --- Data ---
 const LINKS = {
