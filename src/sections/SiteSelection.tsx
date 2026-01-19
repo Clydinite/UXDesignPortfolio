@@ -75,7 +75,7 @@ scaler = StandardScaler()
 X_scaled = scaler.fit_transform(df_transposed)
 
 # Apply DBSCAN
-dbscan = DBSCAN(eps=3.0, min_samples=2
+dbscan = DBSCAN(eps=3.0, min_samples=2)
 dbscan_labels = dbscan.fit_predict(X_scaled)
 
 # Let's see how DBSCAN behaved with a few eps values
@@ -185,7 +185,7 @@ graph LR
         <FadeIn>
           <div className="flex items-center justify-between">
             <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-              <User className="text-emerald-500" /> My Field Observations (The Elders)
+              <User className="text-emerald-500" /> My Field Observations
             </h3>
             <DataLink path="research/field_study.csv" label="field_study.csv" />
           </div>

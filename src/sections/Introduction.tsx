@@ -74,7 +74,7 @@ const CreatorProfile = () => (
   <div className="border-t border-zinc-800 pt-16 pb-20">
     <div className="flex items-center gap-3 mb-10">
       <User className="text-emerald-500" size={32} />
-      <h2 className="text-4xl font-bold text-white tracking-tight">About the Team Leader</h2>
+      <h2 className="text-4xl font-bold text-white tracking-tight">About Myself</h2>
     </div>
 
     <div className="grid lg:grid-cols-12 gap-6">

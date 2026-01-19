@@ -1,6 +1,7 @@
-import { FadeIn } from "@/components/components";
+import React from 'react';
+import { Sparkles, Users, MapPin, Globe } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Users, MapPin, Globe } from "lucide-react";
+import { FadeIn } from "../components/components";
 
 export const Conclusions = () => (
   <section className="py-32 px-6 max-w-7xl mx-auto border-t border-zinc-800">

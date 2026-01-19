@@ -218,9 +218,9 @@ export const Persona = () => (
         <FadeIn>
           <div className="flex items-end justify-between border-b border-zinc-800 pb-6 mb-8">
             <div>
-              <h3 className="text-3xl font-bold text-white mb-2">The Solution: Digital Third Space</h3>
+              <h3 className="text-3xl font-bold text-white mb-2">The UX Solution</h3>
               <p className="text-zinc-400 max-w-2xl">
-                To solve Zi-Xuan's "Social Vacuum," I built a functional React PWA. 
+                To solve Zi-Xuan's "Social Vacuum," I built a React front-end mockup with React.
                 The core logic was to <span className="text-emerald-400">lower the threshold</span> of interaction, not force it.
               </p>
             </div>
@@ -317,7 +317,7 @@ export const Persona = () => (
           <div className="flex flex-col md:flex-row justify-between items-end gap-4 border-b border-zinc-800 pb-6">
             <div>
               <h3 className="text-3xl font-bold text-white">The Design Scenario: A 12-Step Journey</h3>
-              <p className="text-zinc-400 text-sm mt-2">I visualized the persona's journey into a narrative carousel, integrating the React Prototype to give the story a concrete form.</p>
+              <p className="text-zinc-400 text-sm mt-2">I visualized the persona's journey into a 12-step story, integrating the React Prototype to give the story a concrete form.</p>
             </div>
             <div className="flex gap-2">
               <Badge variant="outline" className="border-zinc-700 text-zinc-400">Storyboarding</Badge>
@@ -416,7 +416,7 @@ export const Persona = () => (
                 }
               ].map((step, index) => (
                 <CarouselItem key={index}>
-                  <div className="grid md:grid-cols-2 h-[600px] border-r border-white/5 last:border-0">
+                  <div className="grid md:grid-cols-2 h-[1000px] aspect-auto border-r border-white/5 last:border-0">
                     <div className="bg-black/40">
                       <StorySlideVisual images={step.images} color={step.color} />
                     </div>
