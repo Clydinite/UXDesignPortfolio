@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cpu, Lightbulb, ArrowRight, Shield, Bell, Users, BarChart3, MessageSquareQuote } from 'lucide-react';
+import { Cpu, Lightbulb, ArrowRight, Shield, Bell, Users, BarChart3 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FadeIn, SectionHeader, MermaidDiagram, DataLink } from "../components/components";
 
@@ -79,7 +79,7 @@ export const AIValidation = () => (
                   <div className="absolute top-3 left-3 bg-emerald-500 text-black text-[10px] font-mono px-2 py-1 rounded z-10">AFTER</div>
                   <img src={IMAGES.webProfileFilled} className="w-full transform group-hover:scale-105 transition-transform duration-500" alt="After" />
                 </div>
-                <p className="text-emerald-400 text-xs font-mono text-center">Visual Tags = Low Friction</p>
+                <p className="text-emerald-400 text-xs font-mono text-center">Sliders and Tags = Low Friction</p>
               </div>
             </div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/80 backdrop-blur-md p-3 rounded-full border border-white/10 shadow-2xl">
@@ -96,16 +96,22 @@ export const AIValidation = () => (
         <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
           <Shield className="text-teal-400" /> AI Suggestions: Safety & Control
         </h3>
+
+        <p className="text-zinc-400 leading-relaxed mb-8 text-sm">
+          I summarized the interaction with the AI and identified three core features to address Zi-Xuan's anxieties around safety, social connection, and event anxiety.
+          Then, following the suggestions, I prototyped these features into the website.
+        </p>
+
         <div className="grid md:grid-cols-3 gap-6">
           <Card className="bg-zinc-900 border-zinc-800 hover:border-teal-500/50 transition-colors group">
             <CardHeader className="pb-2">
               <CardTitle className="text-teal-400 text-sm font-bold flex items-center gap-2">
-                <Users size={16}/> Friend Notes
+                <Users size={16} /> Friend Notes
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-white/5">
-                 <img src={IMAGES.webFriends} className="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity" alt="Friend Notes" />
+              <div className="relative aspect-[9/16] overflow-hidden rounded-lg border border-white/5">
+                <img src={IMAGES.webFriends} className="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity" alt="Friend Notes" />
               </div>
               <div className="space-y-2">
                 <p className="text-xs text-teal-200/80 italic">"I'm afraid I'll forget who they are."</p>
@@ -117,12 +123,12 @@ export const AIValidation = () => (
           <Card className="bg-zinc-900 border-zinc-800 hover:border-red-500/50 transition-colors group">
             <CardHeader className="pb-2">
               <CardTitle className="text-red-400 text-sm font-bold flex items-center gap-2">
-                <Shield size={16}/> Safety Map
+                <Shield size={16} /> Safety Map
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-white/5">
-                 <img src={IMAGES.webSafety} className="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity" alt="Safety Map" />
+              <div className="relative aspect-[9/16] overflow-hidden rounded-lg border border-white/5">
+                <img src={IMAGES.webSafety} className="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity" alt="Safety Map" />
               </div>
               <div className="space-y-2">
                 <p className="text-xs text-red-300/80 italic">"I need an exit strategy."</p>
@@ -134,12 +140,12 @@ export const AIValidation = () => (
           <Card className="bg-zinc-900 border-zinc-800 hover:border-blue-500/50 transition-colors group">
             <CardHeader className="pb-2">
               <CardTitle className="text-blue-400 text-sm font-bold flex items-center gap-2">
-                <Bell size={16}/> Notifications
+                <Bell size={16} /> Notifications
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-white/5">
-                 <img src={IMAGES.webNotif} className="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity" alt="Notifications" />
+              <div className="relative aspect-[9/16] overflow-hidden rounded-lg border border-white/5">
+                <img src={IMAGES.webNotif} className="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity" alt="Notifications" />
               </div>
               <div className="space-y-2">
                 <p className="text-xs text-blue-300/80 italic">"Did I miss anything?"</p>
@@ -152,41 +158,42 @@ export const AIValidation = () => (
     </div>
 
     {/* 4. Real User Verification */}
-    <div className="grid md:grid-cols-2 gap-12 items-center">
-      <FadeIn>
-        <div className="space-y-6">
-          <div className="flex items-center gap-2 mb-4">
-             <BarChart3 className="text-purple-400"/>
-             <h3 className="text-xl font-bold text-white">Real User Verification</h3>
-          </div>
-          <p className="text-zinc-400 text-sm leading-relaxed">
-            We surveyed high school and college students to validate these features. The results showed a significant increase in "Action Willingness."
-          </p>
-          
-          <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-4">
-            <h4 className="text-white font-bold text-sm">Top Rated Features</h4>
-            <ul className="space-y-3">
-              <li className="flex gap-3 text-xs text-zinc-400">
-                <div className="mt-0.5 min-w-4 h-4 rounded bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold">1</div>
-                <span><b>Navigation:</b> Solved the fear of "wandering awkwardly."</span>
-              </li>
-              <li className="flex gap-3 text-xs text-zinc-400">
-                <div className="mt-0.5 min-w-4 h-4 rounded bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold">2</div>
-                <span><b>Intensity Slider:</b> Users loved being able to filter out "High Energy" events.</span>
-              </li>
-              <li className="flex gap-3 text-xs text-zinc-400">
-                <div className="mt-0.5 min-w-4 h-4 rounded bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold">3</div>
-                <span><b>Safety Map:</b> Practical value for night-time park usage.</span>
-              </li>
-            </ul>
-          </div>
+    <FadeIn>
+      <div className="space-y-6">
+        <div className="flex items-center gap-2 mb-4">
+          <BarChart3 className="text-purple-400" />
+          <h3 className="text-2xl font-bold text-white">Real User Verification</h3>
+        </div>
+        <p className="text-zinc-400 text-sm leading-relaxed">
+          We surveyed high school and college students to validate these features. The results showed a significant increase in "Action Willingness." I analysed the data and plotted the results.
+        </p>
+      </div>
+    </FadeIn>
+
+    <div className="grid md:grid-cols-2 gap-8 mt-12">
+      <FadeIn delay={0.1}>
+        <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-4">
+          <h4 className="text-white font-bold text-sm">Top Rated Features</h4>
+          <ul className="space-y-3">
+            <li className="flex gap-3 text-xs text-zinc-400">
+              <div className="mt-0.5 min-w-4 h-4 rounded bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold">1</div>
+              <span><b>Navigation:</b> Solved the fear of "wandering awkwardly."</span>
+            </li>
+            <li className="flex gap-3 text-xs text-zinc-400">
+              <div className="mt-0.5 min-w-4 h-4 rounded bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold">2</div>
+              <span><b>Intensity Slider:</b> Users loved being able to filter out "High Energy" events.</span>
+            </li>
+            <li className="flex gap-3 text-xs text-zinc-400">
+              <div className="mt-0.5 min-w-4 h-4 rounded bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold">3</div>
+              <span><b>Safety Map:</b> Practical value for night-time park usage.</span>
+            </li>
+          </ul>
         </div>
       </FadeIn>
-
       <FadeIn delay={0.2}>
         <div className="bg-white p-6 rounded-2xl border border-zinc-200">
           <div className="text-black/50 text-[10px] font-mono mb-4 uppercase tracking-widest text-center">Survey Results: Willingness to Act</div>
-          <img src={IMAGES.surveyPlot} alt="Survey Results" className="w-full h-full object-contain mix-blend-multiply" />
+          <img src={IMAGES.surveyPlot} alt="Survey Results" className="w-120 h-full object-contain mix-blend-multiply" />
         </div>
       </FadeIn>
     </div>
