@@ -1,7 +1,3 @@
-Here is the persona formatted in Markdown, preserving your original text and structure while applying a clean, professional visual style.
-
----
-
 # 👤 Persona: 楊子萱
 
 ## **基本資料**
