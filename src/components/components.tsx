@@ -64,7 +64,7 @@ export const MermaidDiagram = ({ chart }: { chart: string }) => {
   );
 };
 
-const GITHUB_DATA_URL = "https://github.com/Clydinite/UXDesignPresentation/tree/main/data";
+const GITHUB_DATA_URL = "https://github.com/Clydinite/UXDesignPortfolio/tree/main/data";
 
 export const DataLink = ({ path, label }: { path: string, label?: string }) => (
   <a 
