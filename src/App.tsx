@@ -16,7 +16,7 @@ export default function App() {
       <Conclusions />
       
       <footer className="py-12 border-t border-zinc-900 text-center text-zinc-600 text-xs font-mono uppercase tracking-widest">
-        © 2026 Tainan Park Digital Third Space • Clydinite • Team #2
+         2026 Tainan Park Activity Platform • Clydinite • Team #2
       </footer>
     </div>
   );
