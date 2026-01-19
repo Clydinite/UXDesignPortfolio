@@ -1,6 +1,6 @@
-import { FadeIn, SectionHeader } from "@/components/components";
+import { Quote, School, Telescope, Map as MapIcon } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Quote, School, Telescope, Map as MapIcon } from "lucide-react";
+import { FadeIn, SectionHeader } from "../components/components";
 
 export const ReflectionOutlook = () => (
   <section className="py-24 px-6 max-w-7xl mx-auto border-t border-zinc-800">
@@ -14,7 +14,7 @@ export const ReflectionOutlook = () => (
         <div className="space-y-6">
           <Quote className="text-zinc-600 mb-4" size={40} />
           <p className="text-xl text-zinc-300 font-light italic leading-relaxed">
-            "The website is good, but the concept of the park is seemingly diluted. A dynamic illustration of the park with all the activities would be more interesting, compared to static cards."
+            While the digital interface successfully manages user interaction, there is an opportunity to strengthen the <b>spatial connection between the platform and Tainan Park</b>. Integrating environmental visualizations could better illustrate how specific social clusters occupy the physical landscape, moving beyond card-based abstraction to a more <b>site-specific experience</b>.
           </p>
           <div className="flex items-center gap-2 text-zinc-500 text-sm">
             <School size={16} />
