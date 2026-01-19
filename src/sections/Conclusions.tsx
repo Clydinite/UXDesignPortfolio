@@ -1,4 +1,3 @@
-import React from 'react';
 import { Sparkles, Users, MapPin, Globe } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FadeIn } from "../components/components";

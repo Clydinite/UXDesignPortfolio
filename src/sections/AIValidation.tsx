@@ -1,4 +1,3 @@
-import React from 'react';
 import { Cpu, Lightbulb, ArrowRight, Shield, Bell, Users, BarChart3 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FadeIn, SectionHeader, MermaidDiagram, DataLink } from "../components/components";
