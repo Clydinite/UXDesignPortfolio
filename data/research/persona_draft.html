@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>楊子萱用戶畫像：行動社交型學生</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Chart.js 模組 ( battle-tested and reliable ) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <style>
+        /* 設置基本字體 */
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            height: 100vh;
+            padding: 10px;
+            overflow: hidden;
+            /* 確保無滾動條 */
+        }
+
+        /* 確保 Infographic 容器嚴格保持 1x1 比例，並固定尺寸為 1000x1000px */
+        .infographic-container {
+            width: 1000px;
+            height: 1000px;
+            aspect-ratio: 1 / 1;
+
+            background-color: white;
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.2);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            /* 大幅縮小 padding */
+
+            /* Grid 佈局：頂部核心區 (auto) + 主要數據區 (1fr) */
+            display: grid;
+            grid-template-rows: auto 1fr;
+            gap: 1.5rem;
+            /* 縮小主要間距 */
+        }
+
+        /* --- 自定義樣式：保持滑塊和視覺效果 --- */
+        .slider-track {
+            height: 6px;
+            /* 縮小 */
+            background-color: #e0e7ff;
+            border-radius: 9999px;
+            position: relative;
+        }
+
+        .slider-fill {
+            height: 100%;
+            background: linear-gradient(to right, #6366f1, #a855f7);
+            border-radius: 9999px;
+            position: absolute;
+            left: 0;
+        }
+
+        .slider-dot {
+            width: 12px;
+            /* 縮小 */
+            height: 12px;
+            background-color: white;
+            border: 2px solid #a855f7;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2);
+        }
+
+        /* 雷達圖容器樣式調整 */
+        #radar-labels-container {
+            width: 280px;
+            /* 調整大小以讓 Chart.js 呈現最佳效果 */
+            height: 280px;
+            position: relative;
+        }
+
+        .slogan-card {
+            background-color: #f8faff;
+            /* 保持標語卡片略微不同的背景色 */
+            border-left: 3px solid #6366f1;
+            padding: 0.6rem;
+            /* 縮小 */
+            border-radius: 0.5rem;
+            color: #4338ca;
+            font-size: 0.8rem;
+            /* 縮小 */
+            font-weight: 500;
+        }
+
+        /* 新增：分隔線樣式 */
+        .vertical-separator {
+            width: 2px;
+            background-color: #e5e7eb;
+            /* 淺灰色 */
+            margin: 0 1rem;
+        }
+    </style>
+    <script>
+        // 設定 Tailwind CSS 配置，用於中文字體
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary-blue': '#4338ca',
+                        'accent-purple': '#a855f7',
+                        'light-blue': '#eef2ff',
+                        'soft-gray': '#f8fafc',
+                    }
+                }
+            }
+        }
+
+        // =================================================================
+        // 數據定義區塊 
+        // =================================================================
+
+        const personaData = {
+            // 核心資訊
+            name: "楊子萱",
+            age: "16 歲",
+            archetype: "自我沈浸型 / 數位倚賴學生",
+
+            // 新版 BIO（主動到公園、但仍沉浸手機）
+            bio: "楊子萱是位習慣以手機作為生活主軸的高中女生。她主動選擇到公園，是因為這裡比家裡更自由、比咖啡廳更不用消費，也比校園更能讓她從人群退開。她喜歡在戶外的半封閉環境裡放鬆、追劇、更新社群或處理作業，但仍時時刻刻離不開手機。對她來說，公園是個讓身體休息、心靈放空，但手指依然不停滑動的地方。",
+
+            hashtags: ["戶外沈浸", "數位依賴", "自我調整時間"],
+
+            // 動機
+            motivation: {
+                title: "公園情境動機",
+                points: [
+                    "📱 <span class='font-bold'>換個空間但不換心情：</span> 想放鬆，但仍想滑手機；公園提供輕鬆又不封閉的環境。",
+                    "🌳 <span class='font-bold'>自然中的私人角落：</span> 想找一個可坐、可安靜待著、不會被老師或家人打擾的地方。",
+                    "😮‍💨 <span class='font-bold'>需要從室內逃脫：</span> 家裡太吵、教室太悶，戶外讓她更能專注於自己的節奏。",
+                    "🔋 <span class='font-bold'>身心重新開機：</span> 在手機沈浸中休息，為接下來的課業、補習或社交重新充電。"
+                ]
+            },
+
+            // 五個 slider 維度
+            sliders: [
+                {
+                    label: "社會傾向: 內向 vs. 外向",
+                    left: "內向/獨立",
+                    right: "外向/社交",
+                    value: 40,
+                    description: "偏向自我沈浸，不特別追求與環境或陌生人互動，但在線上社群保持活躍。",
+                },
+                {
+                    label: "注意力模式: 專注 vs. 分散",
+                    left: "單一專注",
+                    right: "資訊多工",
+                    value: 85,
+                    description: "同時滑社群、看影片、聽音樂，注意力分散但運作流暢。",
+                },
+                {
+                    label: "時間感知: 嚴謹 vs. 彈性",
+                    left: "嚴謹準時",
+                    right: "享受當下",
+                    value: 75,
+                    description: "放鬆時很容易忘記時間；會待在公園直到覺得需要離開為止。",
+                },
+                {
+                    label: "空間互動: 被動 vs. 主動",
+                    left: "被動觀察",
+                    right: "主動探索",
+                    value: 30,
+                    description: "不太使用公園的互動設施，主要選一個舒服的位置坐著滑手機。",
+                },
+                {
+                    label: "情緒韌性: 焦慮 vs. 穩定",
+                    left: "穩定自信",
+                    right: "需求焦慮",
+                    value: 70,
+                    description: "對手機電量、網路品質、座位舒適度敏感；舒適條件影響心情。",
+                },
+            ],
+
+            // 行為列表（全改）
+            behaviors: [
+                "通常直接找陰影處或靠牆的位置坐下，優先確保手機看得清楚。",
+                "長時間保持固定姿勢滑手機，偶爾因訊息或通知才短暫環顧環境。",
+                "除了手機外，幾乎不主動與環境互動，不玩設施、不走動。",
+                "若陽光太強、椅子不舒服或環境太吵，會迅速換位置或離開。",
+                "偏好半封閉、可短暫逃離社會要求的戶外空間。",
+            ],
+
+            // 五角雷達圖（更貼近新版人物）
+            radar: {
+                labels: ["設施互動性", "環境觀察度", "社交需求度", "動線流暢性", "數位設備依賴"],
+                values: [1, 2, 3, 2, 5],
+                max: 5,
+            },
+
+            // Slogans（全部更新）
+            slogans: [
+                "「到公園就是要放鬆，但手機還是不能放下。」",
+                "「外面空氣好像比較能沉浸追劇。」",
+                "「在這裡滑手機比在家舒服多了。」"
+            ]
+        };
+
+
+        // =================================================================
+        // 繪圖與渲染函數 (使用 Chart.js 模組)
+        // =================================================================
+
+        /**
+         * 渲染雷達圖 (使用 Chart.js 模組)
+         */
+        function renderRadarChart() {
+            const canvas = document.getElementById('radar-chart-canvas');
+            if (!canvas) return;
+
+            // 使用 getContext('2d') 獲取繪圖環境
+            const ctx = canvas.getContext('2d');
+            const data = personaData.radar;
+
+            // Chart.js 實例化
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: '屬性分數 (1-5)',
+                        data: data.values,
+                        backgroundColor: 'rgba(168, 85, 247, 0.4)', // Accent Purple with opacity
+                        borderColor: '#a855f7',
+                        pointBackgroundColor: '#6366f1', // Primary Blue
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#6366f1',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // 允許容器控制大小
+                    scales: {
+                        r: {
+                            // 軸線和網格樣式
+                            angleLines: {
+                                display: true,
+                                color: '#cbd5e1', // Light grid lines
+                                lineWidth: 2
+                            },
+                            grid: {
+                                color: '#e2e8f0'
+                            },
+                            // 標籤樣式 (使用 Noto Sans TC)
+                            pointLabels: {
+                                font: {
+                                    size: 12,
+                                    weight: 'bold',
+                                    family: 'Noto Sans TC'
+                                },
+                                color: '#4b5563'
+                            },
+                            // 刻度設定
+                            suggestedMin: 0,
+                            suggestedMax: data.max,
+                            ticks: {
+                                stepSize: 1,
+                                display: false // 隱藏軸線上的數字標籤 (只顯示網格)
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // 隱藏圖例
+                        },
+                        tooltip: {
+                            enabled: true // 啟用鼠標懸停提示
+                        }
+                    }
+                }
+            });
+        }
+
+        // 渲染滑塊
+        function renderSliders() {
+            const container = document.getElementById('sliders-container');
+            if (!container) return;
+
+            container.innerHTML = personaData.sliders.map((slider) => `
+                <div class="space-y-0.5">
+                    <h4 class="text-xs font-semibold text-gray-700">${slider.label}</h4>
+                    <div class="flex justify-between text-[0.65rem] font-medium text-gray-500">
+                        <span class="text-primary-blue">${slider.left}</span>
+                        <span class="text-accent-purple">${slider.right}</span>
+                    </div>
+                    <div class="slider-track">
+                        <div class="slider-fill" style="width: ${slider.value}%;"></div>
+                        <div class="slider-dot" style="left: ${slider.value}%;"></div>
+                    </div>
+                    <p class="text-[0.6rem] text-gray-500 mt-0.5">${slider.description}</p>
+                </div>
+            `).join('');
+        }
+
+        // 渲染行為與情緒列表
+        function renderLists() {
+            // 渲染行為列表 (現在包含了所有精簡後的要點)
+            const behaviorsContainer = document.getElementById('behaviors-container');
+            behaviorsContainer.innerHTML = personaData.behaviors.map(item => `
+                <li class="text-xs text-gray-700 leading-snug mb-1 flex items-start">
+                    <span class="text-accent-purple font-extrabold mr-1.5 mt-px">•</span>
+                    ${item}
+                </li>
+            `).join('');
+
+            // 渲染情緒與痛點 (此處已清空，但保留元素以防結構變動)
+            const emotionsContainer = document.getElementById('emotions-container');
+            if (emotionsContainer) emotionsContainer.innerHTML = '';
+
+            // 渲染觸發點
+            const motivationContainer = document.getElementById('motivation-points');
+            motivationContainer.innerHTML = personaData.motivation.points.map(item => `
+                <li class="text-xs text-gray-700 leading-snug mb-1 flex items-start">
+                    <span class="mr-1.5 mt-px"> ${item}</span>
+                </li>
+            `).join('');
+
+            // 渲染 Bio 和 Hashtags (使用更高對比度的顏色)
+            document.getElementById('persona-bio').textContent = personaData.bio;
+
+            const hashtagsContainer = document.getElementById('hashtags-container');
+            hashtagsContainer.innerHTML = personaData.hashtags.map(tag => `
+                <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium text-purple-800 bg-purple-200 rounded-full">
+                    #${tag}
+                </span>
+            `).join('');
+        }
+
+        // 主渲染函數
+        function initInfographic() {
+            // 渲染基本資訊
+            document.getElementById('persona-name').textContent = personaData.name;
+            document.getElementById('persona-age').textContent = personaData.age;
+            document.getElementById('persona-archetype').textContent = personaData.archetype;
+
+            // 渲染滑塊
+            renderSliders();
+
+            // 渲染列表 (包含新的 Bio 和 Hashtags)
+            renderLists();
+
+            // 渲染標語
+            const sloganContainer = document.getElementById('slogans-container');
+            sloganContainer.innerHTML = personaData.slogans.map(slogan => `
+                <div class="slogan-card">${slogan}</div>
+            `).join('');
+
+            // 渲染雷達圖 (使用 Chart.js 模組)
+            renderRadarChart();
+        }
+
+        window.onload = initInfographic;
+    </script>
+</head>
+
+<body>
+
+    <div class="infographic-container">
+
+        <!-- 頂部標題與核心區塊 (固定高度，防止內容區溢出) -->
+        <header class="text-center flex-shrink-0">
+            <h1 class="text-3xl font-extrabold text-primary-blue mb-0.5">User Persona</h1>
+            <h2 class="text-xl font-bold text-gray-700">楊子萱：主動到公園的數位依賴型學生</h2>
+            <p class="text-xs text-gray-500 mt-0.5">應用情境：獨自使用公園的放鬆時段</p>
+        </header>
+
+        <!-- 核心身份與圖片/Bio 區塊 (使用 Flex 佈局) -->
+        <div class="flex gap-4 mb-2 flex-shrink-0">
+
+            <!-- A. 圖片佔位符 -->
+            <div
+                class="flex-grow aspect-square w-[300px] h-[300px] bg-gray-200 rounded-xl overflow-hidden shadow-inner flex items-center justify-center">
+                <img src="Picture1.png" alt="楊子萱用戶肖像圖" class="w-full h-full object-cover"
+                    onerror="this.onerror=null;this.src='https://placehold.co/200x200/4338ca/ffffff?text=User+Image';" />
+            </div>
+
+            <!-- B. 核心資料與 Bio -->
+            <div class="h-[300px] bg-light-blue p-2 rounded-xl shadow-md border-l-4 border-accent-purple flex"
+                style="flex-basis: 75%;">
+
+                <!-- 核心身份 (左側，約佔 40%) -->
+                <div class="w-2/5 flex flex-col justify-center">
+                    <h3 class="text-lg font-extrabold text-gray-800 mb-2">① 核心身份與原型</h3>
+                    <div class="text-sm text-gray-700 space-y-1">
+                        <p><strong>姓 名:</strong> <span id="persona-name" class="font-semibold"></span></p>
+                        <p><strong>年 齡:</strong> <span id="persona-age" class="font-semibold"></span></p>
+                        <p><strong>職 業:</strong> 學生（高中生，通勤族）</p>
+                        <p><strong>原型分類:</strong> <span id="persona-archetype"
+                                class="font-extrabold text-accent-purple"></span></p>
+                    </div>
+                </div>
+
+                <!-- 分隔線 -->
+                <div class="vertical-separator"></div>
+
+                <!-- Bio 區塊 (右側，約佔 60%) -->
+                <div class="w-3/5 flex flex-col justify-center pl-4">
+                    <h3 class="text-lg font-extrabold text-gray-800 mb-2">用戶簡介</h3>
+                    <p id="persona-bio" class="text-xs text-gray-700 mb-2"></p>
+                    <div id="hashtags-container" class="flex flex-wrap gap-2">
+                        <!-- Hashtags rendered here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主要內容區域 (三欄 Grid，佔據剩餘空間) -->
+        <div class="grid grid-cols-3 gap-4 h-full">
+
+            <!-- 欄位 1: 動機與行為 (垂直堆疊) -->
+            <div class="space-y-4 flex flex-col h-full">
+
+                <!-- 觸發點與動機 (Section 2) -->
+                <!-- 統一卡片樣式：bg-white, shadow-lg, border-t-4 (綠色) -->
+                <div class="bg-white p-3 rounded-xl shadow-lg border-t-4 border-green-500 flex-grow h-1/2">
+                    <h3 class="text-lg font-extrabold text-gray-800 mb-2">② 公園情境動機</h3>
+                    <ul id="motivation-points" class="list-none p-0 m-0 space-y-0.5 overflow-y-auto h-[80%]">
+                        <!-- Motivation points will be rendered here by JavaScript -->
+                    </ul>
+                </div>
+
+                <!-- 常見行為 (Section 4) -->
+                <!-- 統一卡片樣式：bg-white, shadow-lg, border-t-4 (紫色) -->
+                <div class="bg-white p-3 rounded-xl shadow-lg border-t-4 border-accent-purple flex-grow h-1/2">
+                    <h3 class="text-lg font-extrabold text-gray-800 mb-2">④ 行為模式與核心痛點</h3>
+
+                    <div class="overflow-y-auto h-[90%]">
+                        <ul id="behaviors-container" class="list-none p-0 m-0 space-y-0.5">
+                            <!-- Behaviors (now concise) will be rendered here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 欄位 2: 行為維度滑塊 (單獨一欄, Section 3) -->
+            <div class="space-y-4">
+
+                <!-- 行為維度滑塊 -->
+                <!-- 統一卡片樣式：bg-white, shadow-lg, border-t-4 (藍色) -->
+                <div class="bg-white p-3 rounded-xl shadow-lg border-t-4 border-blue-500 h-full">
+                    <h3 class="text-lg font-extrabold text-gray-800 mb-3">③ 行為維度分析</h3>
+                    <div id="sliders-container" class="flex flex-col justify-between space-y-3 h-[90%]">
+                        <!-- Sliders (now universal traits) will be rendered here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 欄位 3: 雷達圖與核心洞察 (垂直堆疊) -->
+            <div class="space-y-4 flex flex-col h-full">
+
+                <!-- 雷達圖 (Section 5) -->
+                <!-- 統一卡片樣式：bg-white, shadow-lg, border-t-4 (Primary Blue) -->
+                <div
+                    class="bg-white p-3 rounded-xl shadow-lg border-t-4 border-primary-blue flex flex-col flex-grow h-1/2">
+                    <h3 class="text-lg font-extrabold text-gray-800 mb-2 flex-shrink-0">⑤ 核心屬性雷達分析 (1-5分)</h3>
+                    <div class="flex-grow w-full flex justify-center items-center">
+                        <!-- 替換為 Chart.js 的 Canvas 元素 -->
+                        <div id="radar-labels-container" class="-mt-10">
+                            <canvas id="radar-chart-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 核心標語 Slogans (Section 6) -->
+                <!-- 套用卡片樣式：bg-white, shadow-lg, border-t-4 (橘色) -->
+                <div
+                    class="bg-white p-3 rounded-xl shadow-lg border-t-4 border-orange-400 flex flex-col flex-grow h-1/2">
+                    <h3 class="text-lg font-extrabold text-gray-800 mb-2 flex-shrink-0">⑥ 使用者 Slogans</h3>
+                    <div id="slogans-container" class="space-y-2 flex-grow overflow-y-auto">
+                        <!-- Slogans will be rendered here by JavaScript -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
